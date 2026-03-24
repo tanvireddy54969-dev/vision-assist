@@ -46,8 +46,18 @@
       }
     },
     images: {
-      init: () => console.log("Images init"),
-      destroy: () => console.log("Images destroy")
+      init: () => {
+        if (window.VisionAssistImageDescriber?.init) {
+          window.VisionAssistImageDescriber.init();
+        } else {
+          console.warn("VisionAssistImageDescriber module not available");
+        }
+      },
+      destroy: () => {
+        if (window.VisionAssistImageDescriber?.destroy) {
+          window.VisionAssistImageDescriber.destroy();
+        }
+      }
     },
     voice: {
       init: () => console.log("Voice init"),
