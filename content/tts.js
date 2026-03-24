@@ -40,7 +40,8 @@
     waitingForVoices: false,
     selectionButton: null,
     toastTimeout: null,
-    listenersBound: false
+    listenersBound: false,
+    activeSpeakToken: 0
   };
 
   const handlers = {
@@ -303,14 +304,26 @@
     }
 
     const item = state.queue[state.queueIndex];
-    highlightSentenceInContainer(item.container, item.sentence);
+    try {
+      highlightSentenceInContainer(item.container, item.sentence);
+    } catch (error) {
+      // Highlighting should never block speech on complex DOMs.
+      console.warn("VisionAssist TTS highlight skipped:", error);
+    }
 
     const utterance = new SpeechSynthesisUtterance(item.sentence);
+    const speakToken = Date.now();
+    let started = false;
+    state.activeSpeakToken = speakToken;
     utterance.rate = state.currentRate;
     utterance.pitch = state.currentPitch;
+    utterance.volume = 1;
     if (state.currentVoice) {
       utterance.voice = state.currentVoice;
     }
+    utterance.onstart = () => {
+      started = true;
+    };
     utterance.onend = () => {
       state.queueIndex += 1;
       speakQueue();
@@ -321,7 +334,40 @@
     };
 
     state.currentUtterance = utterance;
-    window.speechSynthesis.speak(utterance);
+    try {
+      window.speechSynthesis.resume();
+      window.speechSynthesis.speak(utterance);
+      // Fallback for environments where sentence utterances sometimes never start.
+      setTimeout(() => {
+        if (started || state.activeSpeakToken !== speakToken || !state.enabled) {
+          return;
+        }
+        try {
+          window.speechSynthesis.cancel();
+          const fallback = new SpeechSynthesisUtterance(item.sentence);
+          fallback.rate = 1.0;
+          fallback.pitch = 1.0;
+          fallback.volume = 1;
+          fallback.onend = () => {
+            state.queueIndex += 1;
+            speakQueue();
+          };
+          fallback.onerror = () => {
+            state.queueIndex += 1;
+            speakQueue();
+          };
+          window.speechSynthesis.speak(fallback);
+        } catch (fallbackError) {
+          console.error("VisionAssist TTS fallback speak failed:", fallbackError);
+          state.queueIndex += 1;
+          speakQueue();
+        }
+      }, 1200);
+    } catch (error) {
+      console.error("VisionAssist TTS speak failed:", error);
+      state.queueIndex += 1;
+      speakQueue();
+    }
   }
 
   function readFromBlocks(blocks) {
@@ -344,6 +390,7 @@
       showToast("No readable content found");
       return;
     }
+    showToast(`Reading ${Math.min(state.queue.length, 999)} sentences`);
     speakQueue();
   }
 

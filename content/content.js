@@ -22,30 +22,15 @@
   const modules = {
     tts: {
       init: () => {
-        const tts = window.VisionAssistTTS;
-        if (!tts) {
-          console.warn("VisionAssistTTS module not available");
-          return;
-        }
-        if (typeof tts.init === "function") {
-          tts.init();
-          return;
-        }
-        // If the module is already loaded but has no init lifecycle, keep it usable.
-        if (typeof tts.readPage === "function") {
-          console.log("VisionAssistTTS loaded (no init method)");
+        if (window.VisionAssistTTS?.init) {
+          window.VisionAssistTTS.init();
         } else {
           console.warn("VisionAssistTTS module not available");
         }
       },
       destroy: () => {
-        const tts = window.VisionAssistTTS;
-        if (!tts) return;
-        if (typeof tts.stop === "function") {
-          tts.stop();
-        }
-        if (typeof tts.destroy === "function") {
-          tts.destroy();
+        if (window.VisionAssistTTS?.destroy) {
+          window.VisionAssistTTS.destroy();
         }
       }
     },
@@ -92,6 +77,11 @@
 
     if (message?.type === "READ_PAGE") {
       if (window.VisionAssistTTS?.readPage) {
+        // Ensure TTS is initialized even if toggle sync lagged.
+        if (window.VisionAssistTTS?.init) {
+          window.VisionAssistTTS.init();
+          state.tts = true;
+        }
         window.VisionAssistTTS.readPage();
         sendResponse({ ok: true });
       } else {
