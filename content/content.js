@@ -19,18 +19,35 @@
     document.body.classList.toggle(className, enabled);
   }
 
-  function readPageWithTTS() {
-    const pageText = (document.body?.innerText || "").trim().replace(/\s+/g, " ");
-    if (!pageText) return;
-    speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(pageText);
-    speechSynthesis.speak(utterance);
-  }
-
   const modules = {
     tts: {
-      init: () => console.log("TTS init"),
-      destroy: () => console.log("TTS destroy")
+      init: () => {
+        const tts = window.VisionAssistTTS;
+        if (!tts) {
+          console.warn("VisionAssistTTS module not available");
+          return;
+        }
+        if (typeof tts.init === "function") {
+          tts.init();
+          return;
+        }
+        // If the module is already loaded but has no init lifecycle, keep it usable.
+        if (typeof tts.readPage === "function") {
+          console.log("VisionAssistTTS loaded (no init method)");
+        } else {
+          console.warn("VisionAssistTTS module not available");
+        }
+      },
+      destroy: () => {
+        const tts = window.VisionAssistTTS;
+        if (!tts) return;
+        if (typeof tts.stop === "function") {
+          tts.stop();
+        }
+        if (typeof tts.destroy === "function") {
+          tts.destroy();
+        }
+      }
     },
     images: {
       init: () => console.log("Images init"),
@@ -74,8 +91,12 @@
     }
 
     if (message?.type === "READ_PAGE") {
-      readPageWithTTS();
-      sendResponse({ ok: true });
+      if (window.VisionAssistTTS?.readPage) {
+        window.VisionAssistTTS.readPage();
+        sendResponse({ ok: true });
+      } else {
+        sendResponse({ ok: false, error: "VisionAssistTTS module not available" });
+      }
       return true;
     }
 
