@@ -19,6 +19,17 @@
     document.body.classList.toggle(className, enabled);
   }
 
+  async function fallbackReadPageWithChromeTTS() {
+    const text = (document.body?.innerText || "").trim().replace(/\s+/g, " ");
+    if (!text) return { ok: false, error: "No readable content found" };
+
+    const data = await chrome.storage.sync.get("visionAssistSettings");
+    const settings = data.visionAssistSettings || {};
+    const rate = Number(settings.ttsSpeed ?? 1.0) || 1.0;
+    const clipped = text.slice(0, 5000);
+    return chrome.runtime.sendMessage({ type: "TTS_SPEAK", text: clipped, rate });
+  }
+
   const modules = {
     tts: {
       init: () => {
@@ -82,10 +93,18 @@
           window.VisionAssistTTS.init();
           state.tts = true;
         }
-        window.VisionAssistTTS.readPage();
-        sendResponse({ ok: true });
+        try {
+          window.VisionAssistTTS.readPage();
+          sendResponse({ ok: true, mode: "speechSynthesis" });
+        } catch (_error) {
+          fallbackReadPageWithChromeTTS()
+            .then((result) => sendResponse({ ok: true, mode: "chrome.tts", result }))
+            .catch((fallbackError) => sendResponse({ ok: false, error: fallbackError.message }));
+        }
       } else {
-        sendResponse({ ok: false, error: "VisionAssistTTS module not available" });
+        fallbackReadPageWithChromeTTS()
+          .then((result) => sendResponse({ ok: true, mode: "chrome.tts", result }))
+          .catch((fallbackError) => sendResponse({ ok: false, error: fallbackError.message }));
       }
       return true;
     }
