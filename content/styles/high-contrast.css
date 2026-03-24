@@ -1,0 +1,33 @@
+body.va-high-contrast {
+  background-color: #1a1a2e !important;
+  color: #e0e0e0 !important;
+}
+
+body.va-high-contrast * {
+  color: #e0e0e0 !important;
+  background-color: transparent !important;
+  border-color: #7b84b1 !important;
+}
+
+body.va-high-contrast a,
+body.va-high-contrast a * {
+  color: #00d4ff !important;
+}
+
+body.va-high-contrast h1,
+body.va-high-contrast h2,
+body.va-high-contrast h3,
+body.va-high-contrast h4,
+body.va-high-contrast h5,
+body.va-high-contrast h6 {
+  color: #ffd700 !important;
+}
+
+body.va-high-contrast input,
+body.va-high-contrast button,
+body.va-high-contrast select,
+body.va-high-contrast textarea {
+  border: 2px solid #00d4ff !important;
+  background: #111522 !important;
+  color: #e0e0e0 !important;
+}

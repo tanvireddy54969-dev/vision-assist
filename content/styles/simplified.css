@@ -1,0 +1,28 @@
+body.va-simplified nav,
+body.va-simplified header,
+body.va-simplified footer,
+body.va-simplified aside,
+body.va-simplified [role="navigation"],
+body.va-simplified [class*="sidebar"],
+body.va-simplified [id*="sidebar"],
+body.va-simplified [class*="ad-"],
+body.va-simplified [id*="ad-"],
+body.va-simplified [class*="ads"],
+body.va-simplified [id*="ads"] {
+  display: none !important;
+}
+
+body.va-simplified main,
+body.va-simplified article,
+body.va-simplified [role="main"] {
+  max-width: 800px !important;
+  margin: 24px auto !important;
+  padding: 0 20px !important;
+}
+
+body.va-simplified {
+  background: #f7f6f1 !important;
+  color: #1e1e1e !important;
+  font-family: Georgia, "Times New Roman", serif !important;
+  line-height: 1.75 !important;
+}

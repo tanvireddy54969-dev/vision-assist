@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VisionAssist</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>VisionAssist</h1>
+        <p class="subtitle">Accessibility controls</p>
+      </header>
+
+      <section class="status-card" aria-live="polite">
+        <span class="status-label">Active on:</span>
+        <span id="active-domain" class="status-value">Loading...</span>
+      </section>
+
+      <section class="toggles" aria-label="Feature toggles">
+        <label class="toggle-row" for="toggle-tts">
+          <span>Text-to-Speech</span>
+          <input id="toggle-tts" type="checkbox" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+
+        <label class="toggle-row" for="toggle-images">
+          <span>Image Descriptions</span>
+          <input id="toggle-images" type="checkbox" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+
+        <label class="toggle-row" for="toggle-voice">
+          <span>Voice Commands</span>
+          <input id="toggle-voice" type="checkbox" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+
+        <label class="toggle-row" for="toggle-contrast">
+          <span>High Contrast</span>
+          <input id="toggle-contrast" type="checkbox" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+
+        <label class="toggle-row" for="toggle-largetext">
+          <span>Large Text</span>
+          <input id="toggle-largetext" type="checkbox" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+
+        <label class="toggle-row" for="toggle-simplify">
+          <span>Page Simplification</span>
+          <input id="toggle-simplify" type="checkbox" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </section>
+
+      <button id="read-page-btn" class="read-button" type="button">Read Page</button>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

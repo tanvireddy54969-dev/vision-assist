@@ -1,0 +1,134 @@
+:root {
+  color-scheme: dark;
+  --bg: #0f1220;
+  --panel: #1a1f33;
+  --panel-alt: #202844;
+  --text: #e9ecff;
+  --muted: #a8b2d1;
+  --accent: #00d4ff;
+  --focus: #ffd700;
+  --border: #343f67;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 340px;
+  font-family: Inter, Segoe UI, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  padding: 14px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.status-card {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+}
+
+.status-label {
+  color: var(--muted);
+  margin-right: 6px;
+}
+
+.status-value {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.toggles {
+  margin-top: 12px;
+  display: grid;
+  gap: 9px;
+}
+
+.toggle-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-row input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: #5b678f;
+  transition: background 0.2s ease;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 3px;
+  left: 3px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+.toggle-row input:checked + .slider {
+  background: var(--accent);
+}
+
+.toggle-row input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
+.toggle-row input:focus-visible + .slider,
+.read-button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.read-button {
+  margin-top: 12px;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #001b22;
+  background: var(--accent);
+  cursor: pointer;
+}
+
+.read-button:hover {
+  filter: brightness(1.08);
+}

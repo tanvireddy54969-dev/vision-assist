@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VisionAssist Options</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>VisionAssist Settings</h1>
+      <p class="subtext">Customize how VisionAssist behaves by default.</p>
+
+      <section class="card">
+        <h2>Text-to-Speech</h2>
+        <label for="tts-speed">TTS Speed: <span id="tts-speed-value">1.0</span>x</label>
+        <input id="tts-speed" type="range" min="0.5" max="2.0" step="0.1" value="1.0" />
+
+        <label for="tts-voice">TTS Voice</label>
+        <select id="tts-voice">
+          <option value="">Default system voice</option>
+        </select>
+      </section>
+
+      <section class="card">
+        <h2>Display</h2>
+        <label for="font-multiplier">Font Multiplier: <span id="font-multiplier-value">1.5</span>x</label>
+        <input id="font-multiplier" type="range" min="1.0" max="3.0" step="0.1" value="1.5" />
+      </section>
+
+      <section class="card">
+        <h2>Gemini API</h2>
+        <label for="api-key">Gemini API Key</label>
+        <input id="api-key" type="password" placeholder="Enter API key" />
+        <button id="save-api-key" type="button">Save API Key</button>
+      </section>
+
+      <section class="card">
+        <h2>Default Features</h2>
+        <div class="checks">
+          <label><input type="checkbox" id="default-tts" /> Text-to-Speech</label>
+          <label><input type="checkbox" id="default-images" /> Image Descriptions</label>
+          <label><input type="checkbox" id="default-voice" /> Voice Commands</label>
+          <label><input type="checkbox" id="default-contrast" /> High Contrast</label>
+          <label><input type="checkbox" id="default-largetext" /> Large Text</label>
+          <label><input type="checkbox" id="default-simplify" /> Page Simplification</label>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button id="save-settings" type="button">Save All Settings</button>
+        <span id="save-status" aria-live="polite"></span>
+      </div>
+    </main>
+    <script src="options.js"></script>
+  </body>
+</html>
