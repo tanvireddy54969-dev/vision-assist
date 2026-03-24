@@ -60,8 +60,18 @@
       }
     },
     voice: {
-      init: () => console.log("Voice init"),
-      destroy: () => console.log("Voice destroy")
+      init: () => {
+        if (window.VisionAssistVoice?.init) {
+          window.VisionAssistVoice.init();
+        } else {
+          console.warn("VisionAssistVoice not available");
+        }
+      },
+      destroy: () => {
+        if (window.VisionAssistVoice?.destroy) {
+          window.VisionAssistVoice.destroy();
+        }
+      }
     },
     contrast: {
       init: () => {

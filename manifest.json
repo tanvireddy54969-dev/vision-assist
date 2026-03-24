@@ -24,6 +24,7 @@
         "content/tts.js",
         "content/image-describer.js",
         "content/visual-enhancer.js",
+        "content/voice-commands.js",
         "content/content.js"
       ],
       "css": [

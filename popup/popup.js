@@ -30,8 +30,8 @@ function getDomainFromUrl(url) {
 
 function sendFeatureToggle(tabId, feature, enabled) {
   if (!tabId) return;
-  chrome.tabs.sendMessage(tabId, { type: "TOGGLE_FEATURE", feature, enabled }).catch(() => {
-    // The target page may not allow script injection.
+  chrome.tabs.sendMessage(tabId, { type: "TOGGLE_FEATURE", feature, enabled }).catch((err) => {
+    console.warn("VisionAssist: could not reach this page (reload the tab after installing the extension).", err?.message || err);
   });
 }
 
