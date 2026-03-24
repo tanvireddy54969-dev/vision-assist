@@ -1,33 +1,61 @@
-body.va-high-contrast {
+/* High contrast — active when <html> has class va-high-contrast */
+
+html.va-high-contrast,
+html.va-high-contrast body {
   background-color: #1a1a2e !important;
-  color: #e0e0e0 !important;
+  color: #e8e8e8 !important;
 }
 
-body.va-high-contrast * {
-  color: #e0e0e0 !important;
+html.va-high-contrast *,
+html.va-high-contrast *::before,
+html.va-high-contrast *::after {
+  color: #e8e8e8 !important;
   background-color: transparent !important;
   border-color: #7b84b1 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
 }
 
-body.va-high-contrast a,
-body.va-high-contrast a * {
+html.va-high-contrast a,
+html.va-high-contrast a:visited,
+html.va-high-contrast a * {
   color: #00d4ff !important;
 }
 
-body.va-high-contrast h1,
-body.va-high-contrast h2,
-body.va-high-contrast h3,
-body.va-high-contrast h4,
-body.va-high-contrast h5,
-body.va-high-contrast h6 {
+html.va-high-contrast a:hover,
+html.va-high-contrast a:focus,
+html.va-high-contrast a:hover *,
+html.va-high-contrast a:focus * {
+  color: #5cefff !important;
+}
+
+html.va-high-contrast h1,
+html.va-high-contrast h2,
+html.va-high-contrast h3,
+html.va-high-contrast h4,
+html.va-high-contrast h5,
+html.va-high-contrast h6 {
   color: #ffd700 !important;
 }
 
-body.va-high-contrast input,
-body.va-high-contrast button,
-body.va-high-contrast select,
-body.va-high-contrast textarea {
+html.va-high-contrast input,
+html.va-high-contrast button,
+html.va-high-contrast select,
+html.va-high-contrast textarea {
   border: 2px solid #00d4ff !important;
-  background: #111522 !important;
-  color: #e0e0e0 !important;
+  background-color: #111522 !important;
+  color: #e8e8e8 !important;
+}
+
+/* Do not invert or recolor raster/SVG media — keep natural appearance */
+html.va-high-contrast img,
+html.va-high-contrast picture,
+html.va-high-contrast video,
+html.va-high-contrast canvas,
+html.va-high-contrast svg,
+html.va-high-contrast [role="img"] {
+  filter: none !important;
+  -webkit-filter: none !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
 }

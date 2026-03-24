@@ -1,17 +1,40 @@
-body.va-large-text {
+/* Large text — active when <html> has class va-large-text */
+
+html.va-large-text {
+  zoom: 1.5 !important;
+  line-height: 1.8 !important;
+}
+
+html.va-large-text body {
+  line-height: 1.8 !important;
+  letter-spacing: 0.02em !important;
+  max-width: 80ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+html.va-large-text * {
   line-height: 1.8 !important;
   letter-spacing: 0.02em !important;
 }
 
-body.va-large-text * {
-  font-size: calc(1em * 1.5) !important;
-  line-height: 1.8 !important;
-  letter-spacing: 0.02em !important;
+html.va-large-text p,
+html.va-large-text li,
+html.va-large-text blockquote,
+html.va-large-text dd,
+html.va-large-text dt {
+  margin-top: 0.75em !important;
+  margin-bottom: 0.75em !important;
 }
 
-body.va-large-text p,
-body.va-large-text li,
-body.va-large-text blockquote {
-  margin-top: 1.1em !important;
-  margin-bottom: 1.1em !important;
+html.va-large-text h1,
+html.va-large-text h2,
+html.va-large-text h3,
+html.va-large-text h4,
+html.va-large-text h5,
+html.va-large-text h6 {
+  margin-top: 1em !important;
+  margin-bottom: 0.6em !important;
 }

@@ -1,28 +1,53 @@
-body.va-simplified nav,
-body.va-simplified header,
-body.va-simplified footer,
-body.va-simplified aside,
-body.va-simplified [role="navigation"],
-body.va-simplified [class*="sidebar"],
-body.va-simplified [id*="sidebar"],
-body.va-simplified [class*="ad-"],
-body.va-simplified [id*="ad-"],
-body.va-simplified [class*="ads"],
-body.va-simplified [id*="ads"] {
+/* Simplified / reader-style — active when <html> has class va-simplified */
+
+html.va-simplified nav,
+html.va-simplified header,
+html.va-simplified footer,
+html.va-simplified aside,
+html.va-simplified [role="navigation"],
+html.va-simplified [role="banner"],
+html.va-simplified [role="complementary"] {
   display: none !important;
 }
 
-body.va-simplified main,
-body.va-simplified article,
-body.va-simplified [role="main"] {
-  max-width: 800px !important;
-  margin: 24px auto !important;
-  padding: 0 20px !important;
+html.va-simplified,
+html.va-simplified body {
+  background-color: #fafaf9 !important;
+  color: #1a1a1a !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 1.125rem !important;
+  line-height: 1.75 !important;
 }
 
-body.va-simplified {
-  background: #f7f6f1 !important;
-  color: #1e1e1e !important;
-  font-family: Georgia, "Times New Roman", serif !important;
-  line-height: 1.75 !important;
+html.va-simplified body {
+  max-width: 800px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 2rem 1.5rem 3rem !important;
+}
+
+html.va-simplified * {
+  font-family: inherit !important;
+  line-height: inherit !important;
+}
+
+html.va-simplified main,
+html.va-simplified article,
+html.va-simplified [role="main"] {
+  max-width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html.va-simplified a {
+  color: #0b57d0 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 0.15em !important;
+}
+
+html.va-simplified img,
+html.va-simplified video {
+  max-width: 100% !important;
+  height: auto !important;
 }

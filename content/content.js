@@ -16,7 +16,7 @@
     };
     const className = classMap[name];
     if (!className) return;
-    document.body.classList.toggle(className, enabled);
+    document.documentElement.classList.toggle(className, enabled);
   }
 
   async function fallbackReadPageWithChromeTTS() {
@@ -64,12 +64,24 @@
       destroy: () => console.log("Voice destroy")
     },
     contrast: {
-      init: () => toggleCSS("high-contrast", true),
-      destroy: () => toggleCSS("high-contrast", false)
+      init: () => {
+        if (window.VisionAssistVisual?.enable) window.VisionAssistVisual.enable("contrast");
+        else toggleCSS("high-contrast", true); // fallback if visual module missing
+      },
+      destroy: () => {
+        if (window.VisionAssistVisual?.disable) window.VisionAssistVisual.disable("contrast");
+        else toggleCSS("high-contrast", false);
+      }
     },
     largetext: {
-      init: () => toggleCSS("large-text", true),
-      destroy: () => toggleCSS("large-text", false)
+      init: () => {
+        if (window.VisionAssistVisual?.enable) window.VisionAssistVisual.enable("largetext");
+        else toggleCSS("large-text", true);
+      },
+      destroy: () => {
+        if (window.VisionAssistVisual?.disable) window.VisionAssistVisual.disable("largetext");
+        else toggleCSS("large-text", false);
+      }
     },
     simplify: {
       init: () => toggleCSS("simplified", true),
