@@ -25,6 +25,7 @@
         "content/image-describer.js",
         "content/visual-enhancer.js",
         "content/voice-commands.js",
+        "content/page-simplifier.js",
         "content/content.js"
       ],
       "css": [

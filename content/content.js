@@ -94,8 +94,20 @@
       }
     },
     simplify: {
-      init: () => toggleCSS("simplified", true),
-      destroy: () => toggleCSS("simplified", false)
+      init: () => {
+        if (window.VisionAssistSimplify?.activate) {
+          window.VisionAssistSimplify.activate();
+        } else {
+          toggleCSS("simplified", true); // fallback
+        }
+      },
+      destroy: () => {
+        if (window.VisionAssistSimplify?.deactivate) {
+          window.VisionAssistSimplify.deactivate();
+        } else {
+          toggleCSS("simplified", false);
+        }
+      }
     }
   };
 
